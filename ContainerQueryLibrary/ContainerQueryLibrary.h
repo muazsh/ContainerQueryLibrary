@@ -43,6 +43,26 @@ namespace cql
 		return result;
 	}
 
+	/* Distinct:
+	* 
+	*  Returns: a distinct container of the original one.
+	*  
+	*  Usage: 
+	*  std::list<int> ls{ 11,11,2,2,3,5,6 };
+	*  auto res = Distinct(ls);
+	*/
+	template<typename TContainer>
+	TContainer Distinct(const TContainer& container)
+	{
+		TContainer result;
+		for (auto element : container)
+		{
+			if (std::find(result.begin(), result.end(), element) == result.end())
+				result.push_back(element);
+		}
+		return result;
+	}
+
 	/* OrderBy:
 	*  It Allows to sort std::vector and std::list containers of any type based on an ordering function.
 	* 
@@ -108,7 +128,7 @@ namespace cql
 	*  std::vector<MyStruct1> vec{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
 	*  std::list<MyStruct2> ls{ {1,1} ,{3,4} ,{1,4}, {2,8}, {1,1} };
 	*  auto func1 = [](const MyStruct1& myStruct) { return myStruct.y; }
-	*  auto func1 = [](const MyStruct2& myStruct) { return myStruct.z; }
+	*  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; }
 	*  auto res = Join(vec, ls, func1, func2);
 	* 
 	*  Minimum c++ standard: c++14.
