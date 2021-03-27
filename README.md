@@ -1,5 +1,5 @@
 # Container Query Library
-This library provides c++ containers with basic C# LINQ functions namely: `Where`, `Distinct`, `OrderBy`, `GroupBy` and `Join`.
+This library provides c++ containers with basic C# LINQ functions namely: `Where`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
 
 The supported containers are std::vector and std::list. However, for some functions all types of containers are supported.
 
@@ -14,6 +14,8 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  list<int> ls{1,2,3,4,5}
 	  auto predicate = [](const int& v){ return v%2 == 0; }
 	  auto res = Where(ls, predicate); 
+	  
+	  // Output: {2,4}
   ```
 	*  Minimum c++ standard: c++11.
 	*  A lazy version of the query is included `WhereLazy` which needs microsoft compiler with at least c++17.
@@ -24,6 +26,8 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
   ```
 	  std::list<int> ls{ 11,11,2,2,3,5,6 };
 	  auto res = Distinct(ls);
+	  
+	  // Output: {11,2,3,5,6}
   ```
   	*  A lazy version of the query is included `DistinctLazy` which needs microsoft compiler with at least c++17.
   
@@ -32,9 +36,11 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	*  Usage:
   ```
 	  struct MyStruct{ int x,y; };
-	  std::vector<MyStruct> ls{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
+	  std::vector<MyStruct> ls{ {3,5} ,{1,4}, {2,7}, {1,1}};
 	  auto func = [](const MyStruct& l, const MyStruct& r) { return l.y < r.y; }
 	  OrderBy(ls, func);
+	  
+	  // Output: {{1,1},{1,4},{3,5},{2,7}}
   ```
 	*  Minimum c++ standard: c++17.
   
@@ -47,6 +53,10 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  std::vector<MyStruct> ls{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
 	  auto func = [](const MyStruct& myStruct) { return myStruct.x; }
 	  auto res = GroupBy(ls, func);
+	  
+	  // Output: [1,{{1,4},{1,4},{1,1}}]
+	  //	     [3,{{3,4}}]
+	  //         [2,{{2,7}}]
   ```
 	*  Minimum c++ standard: c++14.
   
@@ -58,10 +68,13 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  struct MyStruct1{ int x,y; };
 	  struct MyStruct2{ int w,z; };
 	  std::vector<MyStruct1> vec{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
-	  std::list<MyStruct2> ls{ {1,1} ,{3,4} ,{1,4}, {2,8}, {1,1} };
+	  std::list<MyStruct2> ls{ {2,1} ,{3,4} ,{1,4}, {2,8}, {3,1} };
 	  auto func1 = [](const MyStruct1& myStruct) { return myStruct.y; }
 	  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; }
 	  auto res = Join(vec, ls, func1, func2);
+	  
+	  // Output: [4,<{{1,4},{3,4},{1,4}},{{3,4},{1,4}}>]
+	  //	     [1,<{{1,1}},{{2,1},{3,1}}>]
   ```
 	*  Minimum c++ standard: c++14.
   
