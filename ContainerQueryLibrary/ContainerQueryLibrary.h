@@ -7,6 +7,11 @@
 #include<map>
 #include<algorithm>
 
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)
+#include <experimental/generator>
+using namespace std::experimental;
+#endif
+
 namespace cql
 {
 	template <typename Type>
@@ -63,6 +68,7 @@ namespace cql
 		return result;
 	}
 
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 	/* OrderBy:
 	*  It Allows to sort std::vector and std::list containers of any type based on an ordering function.
 	* 
@@ -86,7 +92,9 @@ namespace cql
 			container.sort(func);
 		}
 	}
+#endif
 
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201402L) || __cplusplus >= 201402L)
 	/* GroupBy:
 	*  It Allows to group containers of any type based on any data member of that type.
 	* 
@@ -159,6 +167,33 @@ namespace cql
 
 		return result;
 	}
+#endif
+
+#if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)
+	template<template<typename...> typename TContainer, typename TElement, typename TFunc>
+	generator<TElement> WhereLazy(const TContainer<TElement>& container, const TFunc& predicate)
+	{
+		for (auto element : container)
+		{
+			if (predicate(element))
+				co_yield(element);
+		}
+	}
+
+	template<template<typename...> typename TContainer, typename TElement>
+	generator<TElement> DistinctLazy(const TContainer<TElement>& container)
+	{
+		TContainer<TElement> result;
+		for (auto element : container)
+		{
+			if (std::find(result.begin(), result.end(), element) == result.end())
+			{
+				result.push_back(element);
+				co_yield(element);
+			}
+		}
+	}
+#endif
 }
 
 #endif // !CONTAINER_QUERY_LIBRARY
