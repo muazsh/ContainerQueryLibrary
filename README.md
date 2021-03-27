@@ -16,6 +16,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  auto res = Where(ls, predicate); 
   ```
 	*  Minimum c++ standard: c++11.
+	*  A lazy version of the query is included `WhereLazy` which needs microsoft compiler with at least c++17.
 
 * Distinct:
 	*  Returns: A distinct container of the original one.
@@ -24,6 +25,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  std::list<int> ls{ 11,11,2,2,3,5,6 };
 	  auto res = Distinct(ls);
   ```
+  	*  A lazy version of the query is included `DistinctLazy` which needs microsoft compiler with at least c++17.
   
 * OrderBy:
 	*  It Allows to sort std::vector and std::list containers of any type based on an ordering function.
