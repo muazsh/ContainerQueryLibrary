@@ -55,7 +55,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  auto res = GroupBy(ls, func);
 	  
 	  // Output: [1,{{1,4},{1,4},{1,1}}]
-	  //	     [3,{{3,4}}]
+	  //         [3,{{3,4}}]
 	  //         [2,{{2,7}}]
   ```
 	*  Minimum c++ standard: c++14.
@@ -74,7 +74,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  auto res = Join(vec, ls, func1, func2);
 	  
 	  // Output: [4,<{{1,4},{3,4},{1,4}},{{3,4},{1,4}}>]
-	  //	     [1,<{{1,1}},{{2,1},{3,1}}>]
+	  //         [1,<{{1,1}},{{2,1},{3,1}}>]
   ```
 	*  Minimum c++ standard: c++14.
   
