@@ -18,7 +18,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  // Output: {2,4}
   ```
 	*  Minimum c++ standard: c++11.
-	*  A lazy version of the query is included `WhereLazy` which needs microsoft compiler with at least c++17.
+	*  A lazy version `WhereLazy` of this query is included, and it needs microsoft compiler with at least c++17.
 
 * Distinct:
 	*  Returns: A distinct container of the original one.
@@ -29,7 +29,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	  
 	  // Output: {11,2,3,5,6}
   ```
-  	*  A lazy version of the query is included `DistinctLazy` which needs microsoft compiler with at least c++17.
+  	*  A lazy version `DistinctLazy` of this query is included, and it needs microsoft compiler with at least c++17.
   
 * OrderBy:
 	*  It Allows to sort std::vector and std::list containers of any type based on an ordering function.
