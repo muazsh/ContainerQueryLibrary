@@ -45,7 +45,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	*  Minimum c++ standard: c++17.
   
 * GroupBy:
-	*  It Allows to group containers of any type based on any data member of that type.
+	*  It Allows to group containers of any type based on a condition.
   *  Returns: a map whose key is the grouping data member and whose value is a container of elements share the same value of the key.
 	*  Usage:
   ```
@@ -61,7 +61,7 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	*  Minimum c++ standard: c++14.
   
 * Join:
-	*  It Allows to join 2 containers of any type based on shared data member.
+	*  It Allows to join 2 containers of any type based on a shared data member.
   *  Returns: a map whose key is the joining data member and whose value is a pair of containers(subsets of original 2 containers) of elements share the same value of the key.
 	*  Usage:
   ```
