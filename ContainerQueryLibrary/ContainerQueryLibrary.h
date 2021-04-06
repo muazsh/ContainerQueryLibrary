@@ -59,9 +59,9 @@ namespace cql
 	template<typename TContainer, typename TSetFunc>
 	void Update(TContainer& container, const TSetFunc& setFunc)
 	{
-		for (auto itr = container.begin(); itr != container.end(); ++itr)
+		for (auto& element : container)
 		{
-			setFunc(*itr);
+			setFunc(element);
 		}
 	}
 
@@ -77,11 +77,32 @@ namespace cql
 	template<typename TContainer, typename TFunc, typename TSetFunc>
 	void Update(TContainer& container, const TFunc& predicate, const TSetFunc& setFunc)
 	{
-		for (auto itr = container.begin(); itr != container.end(); ++itr)
+		for (auto &element : container)
 		{
-			if (predicate(*itr))
-				setFunc(*itr);
+			if (predicate(element))
+				setFunc(element);
 		}
+	}
+
+	/* Delete Statement:
+	*  It allows to remove elements from a container based on a predicate.
+	*
+	*  Usage:
+	*  list<int> ls{1,7,3,4,7};
+	*  auto predicate = [](const int& v){ return v == 7; };
+	*  Delete(ls, predicate);
+	*/
+	template<typename TContainer, typename TFunc>
+	void Delete(TContainer& container, const TFunc& predicate)
+	{
+		if constexpr (is_vector<TContainer>::value)
+		{
+			container.erase(std::remove_if(container.begin(), container.end(), predicate), container.end());
+		}
+		if constexpr (is_list<TContainer>::value)
+		{
+			container.remove_if(predicate);
+		}	
 	}
 
 	/* Distinct:
@@ -195,7 +216,7 @@ namespace cql
 		auto group1 = GroupBy(container1, joiningMemberFunc1);
 		auto group2 = GroupBy(container2, joiningMemberFunc2);
 
-		for (auto elem : group1)
+		for (auto& elem : group1)
 		{
 			if (group2.find(elem.first) != group2.end())
 				result[elem.first] = std::make_pair(elem.second, group2[elem.first]);
