@@ -5,7 +5,7 @@ The supported containers are std::vector and std::list. However, for some functi
 
 `c++17` suppotrs all of this library functions, `c++14` supports all except of `OrderBy`, and `c++11` supports only `Where`, `Update` and `Distinct`.
 
-# Discription:
+# Description:
 * Where:
 	*  It allows to filter any container with push_back modifier based on a predicate. 
 	*  Returns: A container of elements that satisfy the predicate.
