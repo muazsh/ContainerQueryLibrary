@@ -1,9 +1,9 @@
 # Container Query Library
-This library provides c++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
+This library provides c++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Delete`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
 
 The supported containers are std::vector and std::list. However, for some functions all types of containers are supported.
 
-`c++17` suppotrs all of this library functions, `c++14` supports all except of `OrderBy`, and `c++11` supports only `Where`, `Update` and `Distinct`.
+`c++17` suppotrs all of this library functions, `c++14` supports all except of `Delete` and `OrderBy`, and `c++11` supports only `Where`, `Update` and `Distinct`.
 
 # Description:
 * Where:
@@ -33,6 +33,18 @@ The supported containers are std::vector and std::list. However, for some functi
   ```
 	*  Minimum c++ standard: c++11.
 	*  In case the predicate function is missing it applies changes to all elements.
+
+* Delete:
+	*  It allows to remove elements from a container based on a predicate.
+	*  Usage:
+  ```
+	  list<int> ls{1,7,3,4,7};
+	  auto predicate = [](const int& v){ return v == 7; };
+	  Delete(ls, predicate);
+	  
+	  // Output: {1,3,4}
+  ```
+	*  Minimum c++ standard: c++17.
 	
 * Distinct:
 	*  Returns: A distinct container of the original one.
