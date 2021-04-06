@@ -60,7 +60,9 @@ namespace cql
 	void Update(TContainer& container, const TSetFunc& setFunc)
 	{
 		for (auto itr = container.begin(); itr != container.end(); ++itr)
+		{
 			setFunc(*itr);
+		}
 	}
 
 	/* Update Statement:
@@ -76,8 +78,10 @@ namespace cql
 	void Update(TContainer& container, const TFunc& predicate, const TSetFunc& setFunc)
 	{
 		for (auto itr = container.begin(); itr != container.end(); ++itr)
+		{
 			if (predicate(*itr))
 				setFunc(*itr);
+		}
 	}
 
 	/* Distinct:
