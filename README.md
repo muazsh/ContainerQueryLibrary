@@ -1,18 +1,18 @@
 # Container Query Library
-This library provides c++ containers with basic C# LINQ functions namely: `Where`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
+This library provides c++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
 
 The supported containers are std::vector and std::list. However, for some functions all types of containers are supported.
 
-Currently `c++17` suppotrs all of this library functions, `c++14` supports all except of `OrderBy`, and `c++11` supports only `Where` and `Distinct`.
+`c++17` suppotrs all of this library functions, `c++14` supports all except of `OrderBy`, and `c++11` supports only `Where`, `Update` and `Distinct`.
 
-# Summary:
+# Discription:
 * Where:
 	*  It allows to filter any container with push_back modifier based on a predicate. 
 	*  Returns: A container of elements that satisfy the predicate.
 	*  Usage:
   ```
-	  list<int> ls{1,2,3,4,5}
-	  auto predicate = [](const int& v){ return v%2 == 0; }
+	  list<int> ls{1,2,3,4,5};
+	  auto predicate = [](const int& v){ return v%2 == 0; };
 	  auto res = Where(ls, predicate); 
 	  
 	  // Output: {2,4}
@@ -20,11 +20,25 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	*  Minimum c++ standard: c++11.
 	*  A lazy version `WhereLazy` of this query is included, and it needs microsoft compiler with at least c++17.
 
+* Update:
+	*  It allows to update a container based on an updating function and a predicate.
+	*  Usage:
+  ```
+	  list<int> ls{1,2,3,4,5};
+	  auto set = [](int& v){ v = 10; };
+	  auto predicate = [](const int& v){ return v%2 == 0; };
+	  Update(ls, predicate, set);
+	  
+	  // Output: {1,10,3,10,5}
+  ```
+	*  Minimum c++ standard: c++11.
+	*  In case the predicate function is missing it applies changes to all elements.
+	
 * Distinct:
 	*  Returns: A distinct container of the original one.
 	*  Usage:
   ```
-	  std::list<int> ls{ 11,11,2,2,3,5,6 };
+	  list<int> ls{ 11,11,2,2,3,5,6 };
 	  auto res = Distinct(ls);
 	  
 	  // Output: {11,2,3,5,6}
@@ -36,8 +50,8 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	*  Usage:
   ```
 	  struct MyStruct{ int x,y; };
-	  std::vector<MyStruct> ls{ {3,5} ,{1,4}, {2,7}, {1,1}};
-	  auto func = [](const MyStruct& l, const MyStruct& r) { return l.y < r.y; }
+	  vector<MyStruct> ls{ {3,5} ,{1,4}, {2,7}, {1,1}};
+	  auto func = [](const MyStruct& l, const MyStruct& r) { return l.y < r.y; };
 	  OrderBy(ls, func);
 	  
 	  // Output: {{1,1},{1,4},{3,5},{2,7}}
@@ -50,8 +64,8 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
 	*  Usage:
   ```
 	  struct MyStruct{ int x,y; };
-	  std::vector<MyStruct> ls{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
-	  auto func = [](const MyStruct& myStruct) { return myStruct.x; }
+	  vector<MyStruct> ls{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
+	  auto func = [](const MyStruct& myStruct) { return myStruct.x; };
 	  auto res = GroupBy(ls, func);
 	  
 	  // Output: [1,{{1,4},{1,4},{1,1}}]
@@ -67,10 +81,10 @@ Currently `c++17` suppotrs all of this library functions, `c++14` supports all e
   ```
 	  struct MyStruct1{ int x,y; };
 	  struct MyStruct2{ int w,z; };
-	  std::vector<MyStruct1> vec{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
-	  std::list<MyStruct2> ls{ {2,1} ,{3,4} ,{1,4}, {2,8}, {3,1} };
-	  auto func1 = [](const MyStruct1& myStruct) { return myStruct.y; }
-	  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; }
+	  vector<MyStruct1> vec{ {1,4} ,{3,4} ,{1,4}, {2,7}, {1,1}};
+	  list<MyStruct2> ls{ {2,1} ,{3,4} ,{1,4}, {2,8}, {3,1} };
+	  auto func1 = [](const MyStruct1& myStruct) { return myStruct.y; };
+	  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; };
 	  auto res = Join(vec, ls, func1, func2);
 	  
 	  // Output: [4,<{{1,4},{3,4},{1,4}},{{3,4},{1,4}}>]
