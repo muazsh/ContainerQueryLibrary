@@ -95,34 +95,7 @@ namespace cql
 	template<typename TContainer, typename TFunc>
 	void Delete(TContainer& container, const TFunc& predicate)
 	{
-		if constexpr (is_vector<TContainer>::value)
-		{
-			container.erase(std::remove_if(container.begin(), container.end(), predicate), container.end());
-		}
-		if constexpr (is_list<TContainer>::value)
-		{
-			container.remove_if(predicate);
-		}	
-	}
-
-	/* Distinct:
-	* 
-	*  Returns: a distinct container of the original one.
-	*  
-	*  Usage: 
-	*  list<int> ls{ 11,11,2,2,3,5,6 };
-	*  auto res = Distinct(ls);
-	*/
-	template<typename TContainer>
-	TContainer Distinct(const TContainer& container)
-	{
-		TContainer result;
-		for (auto element : container)
-		{
-			if (std::find(result.begin(), result.end(), element) == result.end())
-				result.push_back(element);
-		}
-		return result;
+		container.erase(std::remove_if(container.begin(), container.end(), predicate), container.end());		
 	}
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
@@ -148,6 +121,31 @@ namespace cql
 		{
 			container.sort(func);
 		}
+	}
+
+	/* Distinct:
+	*
+	*  Returns: a distinct container of the original one.
+	*
+	*  Usage:
+	*  list<int> ls{ 11,11,2,2,3,5,6 };
+	*  auto res = Distinct(ls);
+	*/
+	template<typename TContainer>
+	TContainer Distinct(const TContainer& container)
+	{
+		TContainer result = container;
+		if constexpr (is_vector<TContainer>::value)
+		{
+			std::sort(result.begin(), result.end());
+			result.erase(std::unique(result.begin(), result.end()), result.end());
+		}
+		if constexpr (is_list<TContainer>::value)
+		{
+			result.sort();
+			result.unique();
+		}
+		return result;
 	}
 #endif
 
