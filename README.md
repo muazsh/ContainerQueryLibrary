@@ -3,7 +3,7 @@ This library provides c++ containers with basic SQL statements functionalities (
 
 The supported containers are std::vector and std::list. However, for some functions all types of containers are supported.
 
-`c++17` suppotrs all of this library functions, `c++14` supports all except of `Delete` and `OrderBy`, and `c++11` supports only `Where`, `Update` and `Distinct`.
+`c++17` suppotrs all of this library functions, `c++14` supports all except of `Distinct` and `OrderBy`, and `c++11` supports only `Where`, `Update` and `Delete`.
 
 # Description:
 * Where:
@@ -18,6 +18,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  // Output: {2,4}
   ```
 	*  Minimum c++ standard: c++11.
+	*  Complexity: O(n).
 	*  A lazy version `WhereLazy` of this query is included, and it needs microsoft compiler with at least c++17.
 
 * Update:
@@ -32,6 +33,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  // Output: {1,10,3,10,5}
   ```
 	*  Minimum c++ standard: c++11.
+	*  Complexity: O(n).
 	*  In case the predicate function is missing it applies changes to all elements.
 
 * Delete:
@@ -44,7 +46,8 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: {1,3,4}
   ```
-	*  Minimum c++ standard: c++17.
+	*  Minimum c++ standard: c++11.
+	*  Complexity: O(n).
 	
 * Distinct:
 	*  Returns: A distinct container of the original one.
@@ -55,6 +58,8 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: {11,2,3,5,6}
   ```
+  	*  Minimum c++ standard: c++17.
+	*  Complexity: O(n.log(n)).
   	*  A lazy version `DistinctLazy` of this query is included, and it needs microsoft compiler with at least c++17.
   
 * OrderBy:
@@ -69,6 +74,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  // Output: {{1,1},{1,4},{3,5},{2,7}}
   ```
 	*  Minimum c++ standard: c++17.
+	*  Complexity: O(n.log(n)).
   
 * GroupBy:
 	*  It Allows to group containers of any type based on a condition.
@@ -85,6 +91,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  //         [2,{{2,7}}]
   ```
 	*  Minimum c++ standard: c++14.
+	*  Complexity: O(n).
   
 * Join:
 	*  It Allows to join 2 containers of any type based on a shared data member.
@@ -103,5 +110,6 @@ The supported containers are std::vector and std::list. However, for some functi
 	  //         [1,<{{1,1}},{{2,1},{3,1}}>]
   ```
 	*  Minimum c++ standard: c++14.
+	*  Complexity: O(n.m) where n is the first container size and m is the second one's.
   
   
