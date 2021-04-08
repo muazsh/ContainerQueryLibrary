@@ -9,7 +9,6 @@
 
 #if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)
 #include <experimental/generator>
-using namespace std::experimental;
 #endif
 
 namespace cql
@@ -226,9 +225,9 @@ namespace cql
 
 #if (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)
 	template<template<typename...> typename TContainer, typename TElement, typename TFunc>
-	generator<TElement> WhereLazy(const TContainer<TElement>& container, const TFunc& predicate)
+	std::experimental::generator<TElement> WhereLazy(const TContainer<TElement>& container, const TFunc& predicate)
 	{
-		for (auto element : container)
+		for (auto& element : container)
 		{
 			if (predicate(element))
 				co_yield(element);
@@ -236,10 +235,10 @@ namespace cql
 	}
 
 	template<template<typename...> typename TContainer, typename TElement>
-	generator<TElement> DistinctLazy(const TContainer<TElement>& container)
+	std::experimental::generator<TElement> DistinctLazy(const TContainer<TElement>& container)
 	{
 		TContainer<TElement> result;
-		for (auto element : container)
+		for (auto& element : container)
 		{
 			if (std::find(result.begin(), result.end(), element) == result.end())
 			{
