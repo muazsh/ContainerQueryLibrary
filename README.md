@@ -106,8 +106,8 @@ The supported containers are std::vector and std::list. However, for some functi
 	  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; };
 	  auto res = Join(vec, ls, func1, func2);
 	  
-	  // Output: [4,<{ {1,4},{3,4},{1,4}},{{3,4},{1,4} }>]
-	  //         [1,<{ {1,1}},{{2,1},{3,1} }>]
+	  // Output: [4,<{ {1,4},{3,4},{1,4} },{ {3,4},{1,4} }>]
+	  //         [1,<{ {1,1} },{ {2,1},{3,1} }>]
   ```
 	*  Minimum c++ standard: c++14.
 	*  Complexity: O(n.m) where n is the first container size and m is the second one's.
