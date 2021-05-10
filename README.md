@@ -71,7 +71,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  auto func = [](const MyStruct& l, const MyStruct& r) { return l.y < r.y; };
 	  OrderBy(ls, func);
 	  
-	  // Output: {{1,1},{1,4},{3,5},{2,7}}
+	  // Output: { {1,1},{1,4},{3,5},{2,7} }
   ```
 	*  Minimum c++ standard: c++17.
 	*  Complexity: O(n.log(n)).
@@ -86,9 +86,9 @@ The supported containers are std::vector and std::list. However, for some functi
 	  auto func = [](const MyStruct& myStruct) { return myStruct.x; };
 	  auto res = GroupBy(ls, func);
 	  
-	  // Output: [1,{{1,4},{1,4},{1,1}}]
-	  //         [3,{{3,4}}]
-	  //         [2,{{2,7}}]
+	  // Output: [1,{ {1,4},{1,4},{1,1} }]
+	  //         [3,{ {3,4} }]
+	  //         [2,{ {2,7} }]
   ```
 	*  Minimum c++ standard: c++14.
 	*  Complexity: O(n).
@@ -106,8 +106,8 @@ The supported containers are std::vector and std::list. However, for some functi
 	  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; };
 	  auto res = Join(vec, ls, func1, func2);
 	  
-	  // Output: [4,<{{1,4},{3,4},{1,4}},{{3,4},{1,4}}>]
-	  //         [1,<{{1,1}},{{2,1},{3,1}}>]
+	  // Output: [4,<{ {1,4},{3,4},{1,4}},{{3,4},{1,4} }>]
+	  //         [1,<{ {1,1}},{{2,1},{3,1} }>]
   ```
 	*  Minimum c++ standard: c++14.
 	*  Complexity: O(n.m) where n is the first container size and m is the second one's.
