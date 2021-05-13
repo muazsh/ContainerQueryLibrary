@@ -1,6 +1,6 @@
+#pragma once
 #ifndef CONTAINER_QUERY_LIBRARY
 #define CONTAINER_QUERY_LIBRARY
-#pragma once
 
 #include<vector>
 #include<list>
@@ -14,14 +14,14 @@
 namespace cql
 {
 	template <typename Type>
-	struct is_vector : public std::false_type {};
+	struct IsVector : public std::false_type {};
 	template <typename... A>
-	struct is_vector<std::vector<A...> > : public std::true_type {};
+	struct IsVector<std::vector<A...> > : public std::true_type {};
 
 	template <typename Type>
-	struct is_list : public std::false_type {};
+	struct IsList : public std::false_type {};
 	template <typename... A>
-	struct is_list<std::list<A...> > : public std::true_type {};
+	struct IsList<std::list<A...> > : public std::true_type {};
 
 	/* Where Statement:
 	*  It allows to filter any container with push_back modifier based on a predicate. 
@@ -112,11 +112,11 @@ namespace cql
 	template<typename TContainer, typename TFunc>
 	void OrderBy(TContainer& container, const TFunc& func)
 	{
-		if constexpr (is_vector<TContainer>::value)
+		if constexpr (IsVector<TContainer>::value)
 		{
 			std::sort(container.begin(), container.end(), func);
 		}
-		if constexpr (is_list<TContainer>::value)
+		if constexpr (IsList<TContainer>::value)
 		{
 			container.sort(func);
 		}
@@ -134,12 +134,12 @@ namespace cql
 	TContainer Distinct(const TContainer& container)
 	{
 		TContainer result = container;
-		if constexpr (is_vector<TContainer>::value)
+		if constexpr (IsVector<TContainer>::value)
 		{
 			std::sort(result.begin(), result.end());
 			result.erase(std::unique(result.begin(), result.end()), result.end());
 		}
-		if constexpr (is_list<TContainer>::value)
+		if constexpr (IsList<TContainer>::value)
 		{
 			result.sort();
 			result.unique();
