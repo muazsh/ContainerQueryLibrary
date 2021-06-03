@@ -7,7 +7,7 @@ The supported containers are std::vector and std::list. However, for some functi
 
 # Description:
 * Where:
-	*  It allows to filter any container with push_back modifier based on a predicate. 
+	*  It filters any container with push_back modifier based on a predicate. 
 	*  Returns: A container of elements that satisfy the predicate.
 	*  Usage:
   ```
@@ -22,7 +22,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	*  A lazy version `WhereLazy` of this query is included, and it needs microsoft compiler with at least c++17.
 
 * Update:
-	*  It allows to update a container based on an updating function and a predicate.
+	*  It updates a container based on an updating function and a predicate.
 	*  Usage:
   ```
 	  list<int> ls{1,2,3,4,5};
@@ -37,7 +37,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	*  In case the predicate function is missing it applies changes to all elements.
 
 * Delete:
-	*  It allows to remove elements from a container based on a predicate.
+	*  It removes elements from a container based on a predicate.
 	*  Usage:
   ```
 	  list<int> ls{1,7,3,4,7};
@@ -63,7 +63,7 @@ The supported containers are std::vector and std::list. However, for some functi
   	*  A lazy version `DistinctLazy` of this query is included, and it needs microsoft compiler with at least c++17.
   
 * OrderBy:
-	*  It Allows to sort std::vector and std::list containers of any type based on an ordering function.
+	*  It sorts std::vector and std::list containers of any type based on an ordering function.
 	*  Usage:
   ```
 	  struct MyStruct{ int x,y; };
@@ -77,7 +77,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	*  Complexity: O(n.log(n)).
   
 * GroupBy:
-	*  It Allows to group containers of any type based on a condition.
+	*  It groups containers of any type based on a condition.
   *  Returns: a map whose key is the grouping data member and whose value is a container of elements share the same value of the key.
 	*  Usage:
   ```
@@ -94,7 +94,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	*  Complexity: O(n).
   
 * Join:
-	*  It Allows to join 2 containers of any type based on a shared data member.
+	*  It joins 2 containers of any type based on a shared data member.
   *  Returns: a map whose key is the joining data member and whose value is a pair of containers(subsets of original 2 containers) of elements share the same value of the key.
 	*  Usage:
   ```

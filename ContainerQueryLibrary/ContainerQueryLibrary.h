@@ -24,7 +24,7 @@ namespace cql
 	struct IsList<std::list<A...> > : public std::true_type {};
 
 	/* Where Statement:
-	*  It allows to filter any container with push_back modifier based on a predicate. 
+	*  It filters any container with push_back modifier based on a predicate. 
 	* 
 	*  Returns: A container of elements that satisfy the predicate.
 	* 
@@ -39,7 +39,7 @@ namespace cql
 	TContainer<TElement> Where(const TContainer<TElement>& container, const TFunc& predicate)
 	{
 		TContainer<TElement> result;
-		for (auto element : container)
+		for (auto& element : container)
 		{
 			if (predicate(element))
 				result.push_back(element);
@@ -48,7 +48,7 @@ namespace cql
 	}
 
 	/* Update Statement:
-	*  It allows to update a container based on an updating function.
+	*  It updates a container based on an updating function.
 	*
 	*  Usage:
 	*  list<int> ls{1,2,3,4,5};
@@ -65,7 +65,7 @@ namespace cql
 	}
 
 	/* Update Statement:
-	*  It allows to update a container based on an updating function and a predicate.
+	*  It updates a container based on an updating function and a predicate.
 	*
 	*  Usage:
 	*  list<int> ls{1,2,3,4,5};
@@ -84,7 +84,7 @@ namespace cql
 	}
 
 	/* Delete Statement:
-	*  It allows to remove elements from a container based on a predicate.
+	*  It removes elements from a container based on a predicate.
 	*
 	*  Usage:
 	*  list<int> ls{1,7,3,4,7};
@@ -99,7 +99,7 @@ namespace cql
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 	/* OrderBy:
-	*  It Allows to sort std::vector and std::list containers of any type based on an ordering function.
+	*  It sorts std::vector and std::list containers of any type based on an ordering function.
 	* 
 	*  Usage:
 	*  struct MyStruct{ int x,y; };
@@ -150,7 +150,7 @@ namespace cql
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201402L) || __cplusplus >= 201402L)
 	/* GroupBy:
-	*  It Allows to group containers of any type based on any data member of that type.
+	*  It groups containers of any type based on any data member of that type.
 	* 
 	*  Returns: a map whose key is the grouping data member and whose value is a container
 	*  of elements share the same value of the key.
@@ -179,7 +179,7 @@ namespace cql
 	}
 
 	/* Join:
-	*  It Allows to join 2 containers of any type based on shared data member.
+	*  It joins 2 containers of any type based on shared data member.
 	* 
 	*  Returns: a map whose key is the joining data member and whose value is a pair
 	*  of containers(subsets of original 2 containers) of elements share the same value of the key.
