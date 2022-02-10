@@ -171,7 +171,7 @@ namespace cql
 		TElement containerElement;
 		using GroupingMemberType = decltype(groupingMemberFunc(containerElement));
 		std::map<GroupingMemberType, TContainer<TElement>> result;
-		for (auto elem : container)
+		for (auto& elem : container)
 		{
 			result[groupingMemberFunc(elem)].push_back(elem);
 		}
