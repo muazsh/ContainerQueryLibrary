@@ -1,4 +1,7 @@
 # Container Query Library
+
+[![MSBuild](https://github.com/muazsh/ContainerQueryLibrary/actions/workflows/msbuild.yml/badge.svg)](https://github.com/muazsh/ContainerQueryLibrary/actions/workflows/msbuild.yml)
+
 This library provides c++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Delete`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
 
 The supported containers are std::vector and std::list. However, for some functions all types of containers are supported.
