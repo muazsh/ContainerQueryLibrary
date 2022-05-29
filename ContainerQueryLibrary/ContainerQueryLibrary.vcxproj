@@ -146,7 +146,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ContainerQueryLibrary.cpp" />
-    <ClCompile Include="Module.ixx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContainerQueryLibrary.h" />
