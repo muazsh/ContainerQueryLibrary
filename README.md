@@ -2,16 +2,16 @@
 
 [![MSBuild](https://github.com/muazsh/ContainerQueryLibrary/actions/workflows/msbuild.yml/badge.svg)](https://github.com/muazsh/ContainerQueryLibrary/actions/workflows/msbuild.yml)
 
-This library provides c++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Delete`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also there are `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
+This library provides C++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Delete`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also it includes `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
 
-The supported containers are std::vector and std::list. However, for some functions all types of containers are supported.
+The supported containers are std::vector and std::list. However; for some functions all types of containers are supported.
 
-`c++17` suppotrs all of this library functions, `c++14` supports all except of `Distinct` and `OrderBy`, and `c++11` supports only `Where`, `Update` and `Delete`.
+`C++17` suppotrs all of this library functions, `C++14` supports all except of `Distinct` and `OrderBy`, and `C++11` supports only `Where`, `Update` and `Delete`.
 
 # Description:
 * Where:
-	*  It filters any container with push_back modifier based on a predicate. 
-	*  Returns: A container of elements that satisfy the predicate.
+	*  Filters any container with push_back modifier based on a predicate. 
+	*  Returns: A container of elements that satisfies the predicate.
 	*  Usage:
   ```
 	  list<int> ls{1,2,3,4,5};
@@ -20,12 +20,12 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: {2,4}
   ```
-	*  Minimum c++ standard: c++11.
+	*  Minimum Standard: C++11.
 	*  Complexity: O(n).
-	*  A lazy version `WhereLazy` of this query is included, and it needs microsoft compiler with at least c++17.
+	*  A lazy version `WhereLazy` of this query is included, and it requires microsoft compiler of at least C++17.
 
 * Update:
-	*  It updates a container based on an updating function and a predicate.
+	*  Updates a container based on an updating function and a predicate.
 	*  Usage:
   ```
 	  list<int> ls{1,2,3,4,5};
@@ -35,12 +35,12 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: {1,10,3,10,5}
   ```
-	*  Minimum c++ standard: c++11.
+	*  Minimum Standard: C++11.
 	*  Complexity: O(n).
 	*  In case the predicate function is missing it applies changes to all elements.
 
 * Delete:
-	*  It removes elements from a container based on a predicate.
+	*  Removes elements from a container based on a predicate.
 	*  Usage:
   ```
 	  list<int> ls{1,7,3,4,7};
@@ -49,7 +49,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: {1,3,4}
   ```
-	*  Minimum c++ standard: c++11.
+	*  Minimum Standard: C++11.
 	*  Complexity: O(n).
 	
 * Distinct:
@@ -61,12 +61,12 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: {11,2,3,5,6}
   ```
-  	*  Minimum c++ standard: c++17.
+  	*  Minimum Standard: C++17.
 	*  Complexity: O(n.log(n)).
-  	*  A lazy version `DistinctLazy` of this query is included, and it needs microsoft compiler with at least c++17.
+  	*  A lazy version `DistinctLazy` of this query is included, and it requires microsoft compiler with of least C++17.
   
 * OrderBy:
-	*  It sorts std::vector and std::list containers of any type based on an ordering function.
+	*  Sorts std::vector and std::list containers of any type based on an ordering function.
 	*  Usage:
   ```
 	  struct MyStruct{ int x,y; };
@@ -76,12 +76,12 @@ The supported containers are std::vector and std::list. However, for some functi
 	  
 	  // Output: { {1,1},{1,4},{3,5},{2,7} }
   ```
-	*  Minimum c++ standard: c++17.
+	*  Minimum Standard: C++17.
 	*  Complexity: O(n.log(n)).
   
 * GroupBy:
-	*  It groups containers of any type based on a condition.
-  *  Returns: a map whose key is the grouping data member and whose value is a container of elements share the same value of the key.
+	*  Groups containers of any type based on a condition.
+	*  Returns: A map whose key is the grouping data member and whose value is a container of elements share the same value of the key.
 	*  Usage:
   ```
 	  struct MyStruct{ int x,y; };
@@ -93,12 +93,12 @@ The supported containers are std::vector and std::list. However, for some functi
 	  //         [3,{ {3,4} }]
 	  //         [2,{ {2,7} }]
   ```
-	*  Minimum c++ standard: c++14.
+	*  Minimum Standard: C++14.
 	*  Complexity: O(n).
   
 * Join:
-	*  It joins 2 containers of any type based on a shared data member.
-  *  Returns: a map whose key is the joining data member and whose value is a pair of containers(subsets of original 2 containers) of elements share the same value of the key.
+	*  Joins 2 containers of any type based on a shared data member.
+	*  Returns: A map whose key is the joining data member and whose value is a pair of containers(subsets of original 2 containers) of elements share the same value of the key.
 	*  Usage:
   ```
 	  struct MyStruct1{ int x,y; };
@@ -112,7 +112,7 @@ The supported containers are std::vector and std::list. However, for some functi
 	  // Output: [4,<{ {1,4},{3,4},{1,4} },{ {3,4},{1,4} }>]
 	  //         [1,<{ {1,1} },{ {2,1},{3,1} }>]
   ```
-	*  Minimum c++ standard: c++14.
+	*  Minimum Standard: C++14.
 	*  Complexity: O(n.m) where n is the first container size and m is the second one's.
   
   
