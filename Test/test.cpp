@@ -10,8 +10,6 @@ TEST(ContainerQueryLibrary, Select) {
 	EXPECT_EQ(res1.front(), "Jack");
 	EXPECT_EQ(res1.back(), "Jill");
 
-	std::pair<int, std::string> pa(1, "");
-	pa.first;
 	auto res2 = cql::Select(ls, [](const Employee& emp) { return std::make_pair(emp.id, emp.address); });
 	EXPECT_EQ(res2.size(), 2);
 	EXPECT_EQ(res2.front().first, 1);
