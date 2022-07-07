@@ -23,6 +23,32 @@ namespace cql
 	template <typename... A>
 	struct IsList<std::list<A...> > : public std::true_type {};
 
+	/* Select Query:
+	*  For a given container it returns a list of whatever the selector returns
+	*  from each element of the container.
+	*
+	*  Returns: A list of selected things from each element.
+	*
+	*  Usage:
+	*  struct Employee { int id; std::string name; std::string address; };
+    *  std::list<Employee> ls{ {1, "Jack", "Kaiserslautern"}, {2, "Jill", "Berlin"} };
+
+	*  auto res = Select(ls, [](const Employee& emp) { return emp.name;  // Retruns a list of employees names.
+	*
+	*  Minimum C++ standard: C++11.
+	*/
+	template<typename TContainer, typename TFunc>
+	auto Select(const TContainer& container, const TFunc& selector)
+	{
+		using type = decltype(selector(*container.begin()));
+		std::list<type> result;
+		for (auto& element : container)
+		{
+			result.push_back(selector(element));
+		}
+		return result;
+	}
+
 	/* Where Statement:
 	*  It filters any container with push_back modifier based on a predicate. 
 	* 
@@ -33,7 +59,7 @@ namespace cql
 	*  auto predicate = [](const int& v){ return v%2 == 0; };
 	*  auto res = Where(ls, predicate);
 	* 
-	*  Minimum c++ standard: c++11.
+	*  Minimum C++ standard: C++11.
 	*/
 	template<template<typename...> typename TContainer, typename TElement, typename TFunc>
 	TContainer<TElement> Where(const TContainer<TElement>& container, const TFunc& predicate)
@@ -107,7 +133,7 @@ namespace cql
 	*  auto func = [](const MyStruct& l, const MyStruct& r) { return l.y < r.y; };
 	*  OrderBy(ls, func);
 	* 
-	*  Minimum c++ standard: c++17.
+	*  Minimum C++ standard: C++17.
 	*/
 	template<typename TContainer, typename TFunc>
 	void OrderBy(TContainer& container, const TFunc& func)
@@ -161,7 +187,7 @@ namespace cql
 	*  auto func = [](const MyStruct& myStruct) { return myStruct.x; };
 	*  auto res = GroupBy(ls, func);
 	* 
-	*  Minimum c++ standard: c++14.
+	*  Minimum C++ standard: C++14.
 	*/
 	template<template<typename...> typename TContainer, 
 		typename TElement, 
@@ -193,7 +219,7 @@ namespace cql
 	*  auto func2 = [](const MyStruct2& myStruct) { return myStruct.z; };
 	*  auto res = Join(vec, ls, func1, func2);
 	* 
-	*  Minimum c++ standard: c++14.
+	*  Minimum C++ standard: C++14.
 	*/
 	template<template<typename...> typename TContainer1,
 		template<typename...> typename TContainer2,

@@ -1,5 +1,29 @@
 #include "pch.h"
 
+
+TEST(ContainerQueryLibrary, Select) {
+	struct Employee { int id; std::string name; std::string address; };
+	std::list<Employee> ls{ {1, "Jack", "Kaiserslautern"}, {2, "Jill", "Berlin"} };
+
+	auto res1 = cql::Select(ls, [](const Employee& emp) { return emp.name; });
+	EXPECT_EQ(res1.size(), 2);
+	EXPECT_EQ(res1.front(), "Jack");
+	EXPECT_EQ(res1.back(), "Jill");
+
+	std::pair<int, std::string> pa(1, "");
+	pa.first;
+	auto res2 = cql::Select(ls, [](const Employee& emp) { return std::make_pair(emp.id, emp.address); });
+	EXPECT_EQ(res2.size(), 2);
+	EXPECT_EQ(res2.front().first, 1);
+	EXPECT_EQ(res2.front().second, "Kaiserslautern");
+	EXPECT_EQ(res2.back().first, 2);
+	EXPECT_EQ(res2.back().second, "Berlin");
+
+	std::list<Employee> ls2{};
+	auto res3 = cql::Select(ls2, [](const Employee& emp) { return emp.name; });
+	EXPECT_EQ(res3.size(), 0);
+}
+
 TEST(ContainerQueryLibrary, Where) {
 	std::list<int> ls{ 1,2,3,4,5 };
 	auto predicate = [](const int& v) { return v % 2 == 0; };
