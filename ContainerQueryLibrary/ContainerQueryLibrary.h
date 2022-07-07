@@ -33,7 +33,7 @@ namespace cql
 	*  struct Employee { int id; std::string name; std::string address; };
     *  std::list<Employee> ls{ {1, "Jack", "Kaiserslautern"}, {2, "Jill", "Berlin"} };
 
-	*  auto res = Select(ls, [](const Employee& emp) { return emp.name;  // Retruns a list of employees names.
+	*  auto res = Select(ls, [](const Employee& emp) { return emp.name;});  // Retruns a list of employees names.
 	*
 	*  Minimum C++ standard: C++11.
 	*/
