@@ -2,13 +2,31 @@
 
 [![MSBuild](https://github.com/muazsh/ContainerQueryLibrary/actions/workflows/msbuild.yml/badge.svg)](https://github.com/muazsh/ContainerQueryLibrary/actions/workflows/msbuild.yml)
 
-This library provides C++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Where`, `Update`, `Delete`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also it includes `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
+This library provides C++ containers with basic SQL statements functionalities (or basic C# LINQ methods) namely: `Select`, `Where`, `Update`, `Delete`, `Distinct`, `OrderBy`, `GroupBy` and `Join`. Also it includes `WhereLazy` and `DistinctLazy` which are **lazy** versions of `Where` and `Distinct` respectively. 
 
 The supported containers are std::vector and std::list. However; for some functions all types of containers are supported.
 
 `C++17` suppotrs all of this library functions, `C++14` supports all except of `Distinct` and `OrderBy`, and `C++11` supports only `Where`, `Update` and `Delete`.
 
 # Description:
+* Select:
+	*  For a given container it returns a list of whatever the selector returns
+	*  from each element of the container.
+	*
+	*  Returns: A list of selected things from each element.
+	*
+	*  Usage:
+	```
+	   struct Employee { int id; std::string name; std::string address; };
+	   std::list<Employee> ls{ {1, "Jack", "Kaiserslautern"}, {2, "Jill", "Berlin"} };
+        
+	   auto res = Select(ls, [](const Employee& emp) { return emp.name;});
+	   
+	   // Output: {"Jack","Jill"}
+	```
+	*  Minimum Standard: C++11.
+	*  Complexity: O(n).
+	
 * Where:
 	*  Filters any container with push_back modifier based on a predicate. 
 	*  Returns: A container of elements that satisfies the predicate.
