@@ -6,15 +6,13 @@ This library provides C++ containers with basic SQL statements functionalities (
 
 The supported containers are std::vector and std::list. However; for some functions all types of containers are supported.
 
-`C++17` suppotrs all of this library functions, `C++14` supports all except of `Distinct` and `OrderBy`, and `C++11` supports only `Where`, `Update` and `Delete`.
+`C++17` suppotrs all of this library functions, `C++14` supports all except of `Distinct` and `OrderBy`, and `C++11` supports only `Select`, `Where`, `Update` and `Delete`.
 
 # Description:
 * Select:
 	*  For a given container it returns a list of whatever the selector returns
 	*  from each element of the container.
-	*
 	*  Returns: A list of selected things from each element.
-	*
 	*  Usage:
 	```
 	   struct Employee { int id; std::string name; std::string address; };
